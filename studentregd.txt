@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to usa trip</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <img class="bg" src="iter.jpg" alt="ITER" >
+    <div class="container">
+        <h3>Welcome to Home Page of Iter </h3>
+        <p>Enter Student's information </p>
+
+        <form action="file.php" method="post">
+        <input type="text" name=name id="name" placeholder="Enter full name">
+        <input type="text" name="age" id="age" placeholder="Enter your age">
+        <input type="text" name="gender" id="gender" placeholder="Gender">
+        <input type="number" name="phone" id="number" placeholder="Enter your phone number">
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <textarea name="others" id="desc" cols="30" rows="10" placeholder="Enter other information"></textarea>
+        <button type="submit" class="btn">Submit</button>
+        </form>
+        <!--INSERT INTO `info` (`S no`, `Name`, `Age`, `Gender`, `Phone No`, `Email Id`, `other`, `dt`) VALUES ('1', 'Sahil Kanungo',
+         '20', 'Male', '732883250', 'kanungosahil123@gmail.com', 'Hi This is my first database !!!!!', current_timestamp());-->
+
+
+
+    </div>
+</body>
+</html>  
+*{
+    padding: o px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Pacifico', cursive;
+    
+}
+.container{
+    max-width: 80%;
+    padding: 30px;
+    margin: auto;
+}
+
+.container h3{
+    text-align: center;
+    font-size: 23px;;
+   
+    font-family: 'Permanent Marker', cursive;
+}
+.container p{
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+}
+input,textarea{
+    font-size: 13px;
+    border: 3px solid rgb(38, 219, 31);
+    border-radius: 18px;
+    width: 80%;
+    margin: 16px auto;
+    outline: none;
+    display: block;
+    padding: 2px
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.btn{
+    text-align: center;
+    justify-content: center;
+    color: white;
+    background: burlywood;
+    border: 2px solid double;
+    padding: 7px;
+    border-radius: 19px;
+    float: cen;
+    cursor: pointer;
+}
+
+.bg{
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+<?php
+if(isset($_POST['name'])){
+    $server="localhost";
+    $username="root";
+    $password="";
+
+    $con=mysqli_connect($server,$username,$password);
+
+    if(!$con)
+    {
+        die("Connection to this database failed due to ".mysqli_connect_error());
+    }
+    //echo "Successly connected to the database";
+    $name=$_POST['name'];
+    $age=$_POST['age'];
+    $phone=$_POST['phone'];
+    $gender=$_POST['gender'];
+    $email=$_POST['email'];
+    $other=$_POST['others'];
+
+    $sql=" INSERT INTO `studentinfo`.`info` ( `Name`, `Age`, `Gender`, `Phone No`, `Email Id`, `other`, `dt`) VALUES ( '$name',
+    '$age', '$gender', '$phone', '$email', '$other', current_timestamp());";
+
+    echo $sql;
+
+    if($con->query($sql)==true)
+    {
+        echo "Successfully Inserted ";
+    }
+    else{
+        echo "ERROR : $sql <br> $con->error";
+    }
+
+    $con->close();
+}
+
+?>
+
